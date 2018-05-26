@@ -32,17 +32,17 @@ class Solution:
         # 4个数的合就需要外层两层循环(类推5需要3层..), 还需要初始化一个同样大小的存储每层循环中索引
         self._for_nested(N_sum - 2, nums, 0, target, [None] * (N_sum - 2))
 
-    def _for_nested(self, N, nums, start, target, all_index):
+    def _for_nested(self, N, nums, start, target, saved_items):
 
         # 如果循环次数为0, 则使用指针或者哈希查找target
         if N == 0:
             # 获取所有前面循环的索引对应的值
-            all_value = [nums[i] for i in reversed(all_index)]
-            target = target - sum(all_value)
+            # all_value = [nums[i] for i in reversed(all_index)]
+            target = target - sum(saved_items)
 
             # 两种查找target的方式
-            self._find_sum_by_pointer(nums, start, target, all_value)
-            # self._find_sum_by_hash(nums, all_index[0] + 1, target, all_value)
+            self._find_sum_by_pointer(nums, start, target, list(reversed(saved_items)))
+            # self._find_sum_by_hash(nums, start, target, list(reversed(saved_items)))
 
         else:
 
@@ -52,9 +52,9 @@ class Solution:
                     continue
 
                 # 在对应的位置存储当前循环对应的索引
-                all_index[N - 1] = i
+                saved_items[N - 1] = nums[i]
 
-                self._for_nested(N - 1, nums, i + 1, target, all_index)
+                self._for_nested(N - 1, nums, i + 1, target, saved_items)
 
     def _find_sum_by_hash(self, nums, left_start, target, saved_items):
         """
@@ -62,7 +62,6 @@ class Solution:
         2. 根据要查找的值, 将所有可能的组合存到self.res
         3. 参数说明 nums-原始数组的一部, 起始点, 查找的目标, 要存储的值
         """
-        res = set()
         seen_set = set()
 
         for num in nums[left_start:]:
@@ -73,16 +72,12 @@ class Solution:
             else:
                 seen_set.add(num)
 
-        return res
-
     def _find_sum_by_pointer(self, nums, left_start, target, saved_items):
         """
         1. 使用双指针来寻找值
         2. 根据要查找的值, 将所有可能的组合存到self.res
         3. 参数说明 nums-原始的数组, 起始点, 查找的目标, 要存储的值
         """
-        res = set()
-
         left, right = left_start, len(nums) - 1
 
         while left < right:
@@ -104,4 +99,3 @@ class Solution:
                 while left < right and nums[right] == nums[right + 1]:
                     right -= 1
 
-        return res

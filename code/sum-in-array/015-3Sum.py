@@ -54,17 +54,18 @@ class Solution:
         nums.sort()
         res = set()
 
-        for i, v in enumerate(nums[:-2]):
-            # 优化
-            if i >= 1 and v == nums[i-1]:
+        for i, v_i in enumerate(nums[:-2]):
+
+            if i >= 1 and v_i == nums[i - 1]:
                 continue
 
-            d = set()
-            for x in nums[i+1:]:
-                if x not in d:
-                    d.add(-(v + x))
+            seen_set = set()
+            for num in nums[i + 1:]:
+
+                search = 0 - (v_i + num)
+                if search in seen_set:
+                    res.add((v_i, search, num))
                 else:
-                    res.add((v, -(v + x), x))
+                    seen_set.add(num)
 
         return list(res)
-
