@@ -46,3 +46,6 @@ class Solution:
             elif child[i] > parent[i]:
                 return False
         return True
+
+
+
