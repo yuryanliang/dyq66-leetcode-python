@@ -6,7 +6,7 @@ __date__ = '2018/6/2 12:04'
 class Solution:
     def isValid(self, s):
         """
-        1. 使用栈的原因：需要从内向外比较
+        1. 使用栈的原因：需要比较最近的括号
         2. 创建hashmap, key是入栈的，value是出栈的
         3. 遍历字符串
            字符是key：就入栈
