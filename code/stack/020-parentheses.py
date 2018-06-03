@@ -14,24 +14,17 @@ class Solution:
         4. 遍历完栈中还有就是False
         """
         # 步骤1
-        parentheses = {
-            '{': '}',
-            '[': ']',
-            '(': ')'
-        }
+        parentheses = {k: v for k, v in zip('([{', ')]}')}
 
         # 步骤2
         stack = []
 
-        for item in s:
-            if item in parentheses:
-                stack.append(item)
+        for char in s:
+            if char in parentheses:
+                stack.append(char)
             else:
-                if not stack or parentheses[stack.pop()] != item:
+                if not stack or parentheses[stack.pop()] != char:
                     return False
 
         # 步骤3
-        if stack:
-            return False
-
-        return True
+        return not stack

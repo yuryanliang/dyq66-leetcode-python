@@ -20,13 +20,14 @@ class Solution:
         res = []
 
         for item in cleaned_path:
-            if item == '.':
+            # cleaned_path中可能有被分割出的空字符串
+            if item == '.' or item == '':
                 continue
-            elif item == '..':
+
+            if item == '..':
                 if res:
                     res.pop()
-            # cleaned_path中可能有被分割出的空字符串
-            elif item != '':
+            else:
                 res.append(item)
 
         # 步骤三
