@@ -42,3 +42,4 @@ class Solution:
                 queue_index += 1
 
         return dummy.next
+from queue import PriorityQueue
