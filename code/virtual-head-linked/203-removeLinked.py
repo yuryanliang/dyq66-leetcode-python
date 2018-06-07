@@ -25,3 +25,17 @@ class Solution:
             needle = needle.next
 
         return virtual_head.next
+		
+	def removeElements02(self, head, val):
+        dummy_head = ListNode(None)
+        dummy_head.next = head
+        
+        pre = dummy_head
+        
+        while pre.next:
+            if pre.next.val == val:
+                pre.next = pre.next.next
+            else:
+                pre = pre.next
+                
+        return dummy_head.next	
